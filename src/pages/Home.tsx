@@ -12,15 +12,15 @@ import {
   IonCardContent,
   IonImg
 } from "@ionic/react";
-import "./Tab1.css";
+import '../theme/Home.css'
 
 
-const Tab1: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
+          <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -44,4 +44,4 @@ const Tab1: React.FC = () => {
   );
 };
 
-export default Tab1;
+export default Home;
