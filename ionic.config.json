@@ -1,0 +1,7 @@
+{
+  "name": "letsingapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

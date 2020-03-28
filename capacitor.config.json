@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "letsingapp",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
