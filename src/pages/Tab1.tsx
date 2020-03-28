@@ -1,7 +1,15 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import React from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol
+} from "@ionic/react";
+import "./Tab1.css";
 
 const Tab1: React.FC = () => {
   return (
@@ -12,12 +20,12 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+        <IonGrid>
+          <IonRow>
+            <IonCol offset="2">ion-col</IonCol>
+            <IonCol offset="2">ion-col</IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
