@@ -7,7 +7,8 @@ import {
   IonIcon,
   IonAvatar,
   IonImg,
-  IonActionSheet
+  IonActionSheet,
+  IonRouterLink
 } from "@ionic/react";
 import "../theme/Track.css";
 import {
@@ -18,7 +19,8 @@ import {
   share,
   playCircleOutline,
   heart,
-  close
+  close,
+  playOutline
 } from "ionicons/icons";
 
 interface TrackType {
@@ -28,7 +30,7 @@ interface TrackType {
 
 const Track: React.FC<TrackType> = ({ title, thumbnail }: TrackType) => {
   const [isFave, setFave] = useState<boolean>(false);
-  const [showActionSheet, setShowActionSheet] = useState(false);
+  const [showActionSheet, setShowActionSheet] = useState<boolean>(false);
 
   function handleFavourite() {
     setFave(!isFave);
@@ -38,10 +40,15 @@ const Track: React.FC<TrackType> = ({ title, thumbnail }: TrackType) => {
       <IonItem>
         <IonGrid>
           <IonRow>
-            <IonCol size="2">
+            <IonCol size="1">
               <IonAvatar slot="start">
                 <IonImg alt={title} src={thumbnail} />
               </IonAvatar>
+            </IonCol>
+            <IonCol size="1">
+                <IonRouterLink routerDirection='forward' routerLink='/player'>
+                    <IonIcon icon={playOutline} />
+                </IonRouterLink>
             </IonCol>
             <IonCol size="6">{title}</IonCol>
             <IonCol size="2">

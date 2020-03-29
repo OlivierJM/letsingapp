@@ -31,6 +31,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import PlayerMusic from './pages/TrackPlayer';
 
 const Home = loadable(() => import('./pages/Home'))
 const Favourites = loadable(() => import('./pages/Favourites'))
@@ -44,6 +45,7 @@ const App: React.FC = () => (
           <Route path="/home" component={Home} exact={true} />
           <Route path="/faves" component={Favourites} exact={true} />
           <Route path="/settings" component={Settings} />
+          <Route path='/player' component={PlayerMusic} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

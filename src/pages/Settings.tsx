@@ -1,6 +1,7 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import '../theme/Settings.css'
+import Player from '../components/Player';
 
 const Settings: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Settings: React.FC = () => {
             <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <Player />
       </IonContent>
     </IonPage>
   );
