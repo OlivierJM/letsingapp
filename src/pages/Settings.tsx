@@ -1,5 +1,6 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import Track from '../components/Track';
 import '../theme/Settings.css'
 
 const Settings: React.FC = () => {
@@ -16,6 +17,11 @@ const Settings: React.FC = () => {
             <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <Track thumbnail='cover' title='Title of the song' /> 
+        <Track thumbnail='cover' title='Title of the song' /> 
+        <Track thumbnail='cover' title='Title of the song' /> 
+        <Track thumbnail='cover' title='Title of the song' /> 
+        <Track thumbnail='cover' title='Title of the song' /> 
       </IonContent>
     </IonPage>
   );
