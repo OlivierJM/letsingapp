@@ -28,7 +28,7 @@ const Favourites: React.FC = () => {
           <Track
             key={i}
             thumbnail={
-              'https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"'
+              'https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
             }
             title={`${i} Song Title`}
           />
