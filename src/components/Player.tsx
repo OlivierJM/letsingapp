@@ -35,16 +35,17 @@ const Player: React.FC = () => {
           style={{
             height: "60vh",
             marginLeft: 60,
-            marginRight: 60
+            marginRight: 60,
+            borderRadius: 20
           }}
           src={animals}
         />
         <div className="text">
           <IonText className="ion-text-center">
-            <h3>Olivier</h3>
+            <h3>Babs Choir</h3>
           </IonText>
           <IonText color="light" className="ion-text-center">
-            <h4>How far from home</h4>
+            <h4>Rejoice</h4>
           </IonText>
         </div>
         <IonGrid>
@@ -57,7 +58,8 @@ const Player: React.FC = () => {
           <IonRow
             style={{
               marginLeft: '15%',
-              marginRight: '-12%'
+              marginRight: '-12%',
+              marginTop: '-11px'
             }}
           >
             <IonCol size="4">
