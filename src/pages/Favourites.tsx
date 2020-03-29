@@ -31,7 +31,7 @@ const Favourites: React.FC = () => {
         <IonCol className="ion-justify-content-between">
           <IonContent>
             <IonList>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i: number) => (
                 <IonItem key={i}>
                   <IonAvatar slot="start">
                     <IonImg alt='to be play button' src="https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" />
