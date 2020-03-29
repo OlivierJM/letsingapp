@@ -27,12 +27,11 @@ const Home: React.FC = () => {
         <IonGrid>
           <IonRow>
             {[1, 2, 3, 4].map(i => (
-              <IonCol size-lg="3" size-md="4" size-sm="6" key={i}>
+              <IonCol size-lg="3" size-md="4" size-sm="6" size="6" key={i}>
                 <IonCard routerDirection='forward' routerLink='/faves' >
                     <IonImg alt='album cover' src={'https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'} />
                   <IonCardContent>
-                    This is content, without any paragraph or header tags,
-                    within an ion-cardContent element.
+                    This is content, without any paragraph or header tags
                   </IonCardContent>
                 </IonCard>
               </IonCol>
