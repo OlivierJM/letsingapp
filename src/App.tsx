@@ -11,9 +11,7 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { cogOutline, heartOutline, homeOutline } from 'ionicons/icons';
-import Tab1 from './pages/Home';
-import Tab2 from './pages/Favourites';
-import Tab3 from './pages/Settings';
+import loadable from '@loadable/component'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,26 +32,30 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+const Home = loadable(() => import('./pages/Home'))
+const Favourites = loadable(() => import('./pages/Favourites'))
+const Settings = loadable(() => import('./pages/Settings'))
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/home" component={Tab1} exact={true} />
-          <Route path="/faves" component={Tab2} exact={true} />
-          <Route path="/settings" component={Tab3} />
+          <Route path="/home" component={Home} exact={true} />
+          <Route path="/faves" component={Favourites} exact={true} />
+          <Route path="/settings" component={Settings} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/home">
+          <IonTabButton tab="Home" href="/home">
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/faves">
+          <IonTabButton tab="Favourites" href="/faves">
             <IonIcon icon={heartOutline} />
             <IonLabel>Favourites</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/settings">
+          <IonTabButton tab="Settings" href="/settings">
             <IonIcon icon={cogOutline} />
             <IonLabel>Settings</IonLabel>
           </IonTabButton>

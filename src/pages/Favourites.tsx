@@ -10,7 +10,6 @@ import {
   IonLabel,
   IonAvatar,
   IonImg,
-  IonIcon,
   IonCol
 } from "@ionic/react";
 import "../theme/Favourites.css";
