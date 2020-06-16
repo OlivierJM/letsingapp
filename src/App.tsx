@@ -44,8 +44,9 @@ const App: React.FC = () => (
         <IonRouterOutlet>
           <Route path="/home" component={Home} exact={true} />
           <Route path="/album/:id" component={Songs} exact={true} />
+          <Route path="/song/:id" component={Songs} exact={true} />
           <Route path="/settings" component={Settings} />
-          <Route path='/player' component={PlayerMusic} />
+          <Route path="/player" component={PlayerMusic} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
