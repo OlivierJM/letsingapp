@@ -14,7 +14,7 @@ import { useQuery } from "react-apollo";
 import { useParams } from "react-router";
 import { SongListQuery } from "../graphql/queries";
 import { SongType } from "../graphql/types";
-
+import ReactMarkdown from 'react-markdown'
 
 function SongList() {
   const { id } = useParams()
@@ -38,7 +38,7 @@ function SongList() {
   return (
     <IonPage>
       <IonModal isOpen={showModal} cssClass="my-custom-class">
-        <p>{lyrics}</p>
+        <ReactMarkdown source={lyrics} />
         <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
       </IonModal>
       <IonHeader>
