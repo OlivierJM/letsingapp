@@ -34,7 +34,7 @@ import './theme/variables.css';
 import PlayerMusic from './pages/TrackPlayer';
 
 const Home = loadable(() => import('./pages/Home'))
-const Favourites = loadable(() => import('./pages/Favourites'))
+const Songs = loadable(() => import('./pages/Songs'))
 const Settings = loadable(() => import('./pages/Settings'))
 
 const App: React.FC = () => (
@@ -43,7 +43,7 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/home" component={Home} exact={true} />
-          <Route path="/faves" component={Favourites} exact={true} />
+          <Route path="/album/:id" component={Songs} exact={true} />
           <Route path="/settings" component={Settings} />
           <Route path='/player' component={PlayerMusic} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
@@ -53,9 +53,9 @@ const App: React.FC = () => (
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="Favourites" href="/faves">
+          <IonTabButton tab="Songs" href="/albums">
             <IonIcon icon={heartOutline} />
-            <IonLabel>Favourites</IonLabel>
+            <IonLabel>Songs</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Settings" href="/settings">
             <IonIcon icon={cogOutline} />

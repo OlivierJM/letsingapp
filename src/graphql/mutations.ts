@@ -1,0 +1,3 @@
+// Mutations
+
+export const mutations = {}

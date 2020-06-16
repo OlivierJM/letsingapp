@@ -13,9 +13,29 @@ import {
   IonImg
 } from "@ionic/react";
 import '../theme/Home.css'
+import { useQuery } from "react-apollo";
+import { AlbumQuery } from "../graphql/queries";
+
+interface ImageType {
+  name: string
+}
+interface AlbumType {
+  id: string
+  title: string
+  createdAt: string
+  thumbnail: any
+}
 
 
-const Home: React.FC = () => {
+function Home(){
+  const { error, data, loading } = useQuery(AlbumQuery)
+  if (loading) {
+    return <span>loading</span>;
+  }
+  if (error) {
+    return <span>error.message</span>;
+  }
+  console.log(data)
   return (
     <IonPage>
       <IonHeader>
@@ -26,12 +46,12 @@ const Home: React.FC = () => {
       <IonContent>
         <IonGrid>
           <IonRow>
-            {[1, 2, 3, 4].map(i => (
-              <IonCol size-lg="3" size-md="4" size-sm="6" size="6" key={i}>
-                <IonCard routerDirection='forward' routerLink='/faves' >
+            {data.albums.map((album: AlbumType) => (
+              <IonCol size-lg="3" size-md="4" size-sm="6" size="6" key={album.id}>
+                <IonCard routerDirection='forward' routerLink={`/album/${album.id}`} >
                     <IonImg alt='album cover' src={'https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'} />
                   <IonCardContent>
-                    This is content, without any paragraph or header tags
+                    {album.title}
                   </IonCardContent>
                 </IonCard>
               </IonCol>
