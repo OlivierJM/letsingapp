@@ -8,8 +8,24 @@ import {
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
+import { useQuery } from "react-apollo";
+import { useParams } from "react-router";
+import { SongListQuery } from "../graphql/queries";
+import { SongType } from "../graphql/types";
 
-const Favourites: React.FC = () => {
+
+function SongList() {
+  const { id } = useParams()
+  const { error, data, loading } = useQuery(SongListQuery, {
+    variables: { id }
+  })
+    if (loading) {
+      return <span>loading</span>;
+    }
+  if (error) {
+      console.log(error.message);
+      return <span>{error.message}</span>;
+    }
   return (
     <IonPage>
       <IonHeader>
@@ -24,17 +40,19 @@ const Favourites: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i: number) => (
+        {data.album.songs.map((song: SongType) => (
           <Track
-            key={i}
+            id={song.id}
+            lyrics={song.lyrics}
+            key={song.id}
             thumbnail={
               'https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
             }
-            title={`${i} Song Title`}
+            title={song.title}
           />
         ))}
       </IonContent>
     </IonPage>
   );
 };
-export default Favourites;
+export default SongList;

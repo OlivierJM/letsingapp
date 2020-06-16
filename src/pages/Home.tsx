@@ -35,7 +35,6 @@ function Home(){
   if (error) {
     return <span>error.message</span>;
   }
-  console.log(data)
   return (
     <IonPage>
       <IonHeader>

@@ -22,22 +22,32 @@ import {
   close,
   playOutline
 } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 interface TrackType {
   title: string;
   thumbnail: string;
+  id: string;
+  lyrics: string
 }
 
-const Track: React.FC<TrackType> = ({ title, thumbnail }: TrackType) => {
+const Track: React.FC<TrackType> = ({ title, thumbnail, id, lyrics }: TrackType) => {
+  const history = useHistory()
   const [isFave, setFave] = useState<boolean>(false);
   const [showActionSheet, setShowActionSheet] = useState<boolean>(false);
 
   function handleFavourite() {
     setFave(!isFave);
   }
+  function viewLyrics() {
+    return history.push({
+      pathname: `/song/${id}`,
+      state: { lyrics }
+    })
+  }
   return (
     <>
-      <IonItem>
+      <IonItem onClick={viewLyrics}>
         <IonGrid>
           <IonRow>
             <IonCol size="1">

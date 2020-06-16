@@ -13,3 +13,16 @@ export const AlbumQuery = gql`
            }
          }
        `;
+
+export const SongListQuery = gql`
+         query album($id: ID!){
+           album(id: $id) {
+             songs {
+                 id
+               title
+               lyrics
+               author
+             }
+           }
+         }
+       `;
