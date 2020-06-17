@@ -10,7 +10,8 @@ import {
   IonCol,
   IonCard,
   IonCardContent,
-  IonImg
+  IonImg,
+  IonLoading
 } from "@ionic/react";
 import '../theme/Home.css'
 import { useQuery } from "react-apollo";
@@ -30,10 +31,10 @@ interface AlbumType {
 function Home(){
   const { error, data, loading } = useQuery(AlbumQuery)
   if (loading) {
-    return <span>loading</span>;
+    return <Loader showLoading={loading} />;
   }
   if (error) {
-    return <span>error.message</span>;
+    return <span>{error.message}</span>;
   }
   return (
     <IonPage>
@@ -42,16 +43,29 @@ function Home(){
           <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
+    
       <IonContent>
         <IonGrid>
           <IonRow>
             {data.albums.map((album: AlbumType) => (
-              <IonCol size-lg="3" size-md="4" size-sm="6" size="6" key={album.id}>
-                <IonCard routerDirection='forward' routerLink={`/album/${album.id}`} >
-                    <IonImg alt='album cover' src={'https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'} />
-                  <IonCardContent>
-                    {album.title}
-                  </IonCardContent>
+              <IonCol
+                size-lg="3"
+                size-md="4"
+                size-sm="6"
+                size="6"
+                key={album.id}
+              >
+                <IonCard
+                  routerDirection="forward"
+                  routerLink={`/album/${album.id}`}
+                >
+                  <IonImg
+                    alt="album cover"
+                    src={
+                      "https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                    }
+                  />
+                  <IonCardContent>{album.title}</IonCardContent>
                 </IonCard>
               </IonCol>
             ))}
@@ -62,4 +76,17 @@ function Home(){
   );
 };
 
+// TODO: add proper types here
+export function Loader({ showLoading}: any) {
+         return (
+           <IonLoading
+             cssClass="my-custom-class"
+             isOpen={showLoading}
+             message={"Please wait..."}
+             duration={5000}
+             animated
+             keyboardClose
+           />
+         );
+       }
 export default Home;

@@ -16,6 +16,7 @@ import { SongListQuery } from "../graphql/queries";
 import { SongType } from "../graphql/types";
 import ReactMarkdown from 'react-markdown'
 import "github-markdown-css";
+import { Loader } from "./Home";
 
 function SongList() {
   const { id } = useParams()
@@ -26,7 +27,7 @@ function SongList() {
     variables: { id }
   })
     if (loading) {
-      return <span>loading</span>;
+      return <Loader showLoading={loading} />;
     }
   if (error) {
       console.log(error.message);

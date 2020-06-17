@@ -14,7 +14,7 @@ const Settings: React.FC = () => {
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Settings</IonTitle>
+            <IonTitle size="large">Coming soon ...</IonTitle>
           </IonToolbar>
         </IonHeader>
         <Player />
