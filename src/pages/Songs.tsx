@@ -15,11 +15,13 @@ import { useParams } from "react-router";
 import { SongListQuery } from "../graphql/queries";
 import { SongType } from "../graphql/types";
 import ReactMarkdown from 'react-markdown'
+import "github-markdown-css";
 
 function SongList() {
   const { id } = useParams()
   const [showModal, setShowModal] = useState(false);
   const [lyrics, setLyrics] = useState("")
+  const [_title, setTitle] = useState("")
   const { error, data, loading } = useQuery(SongListQuery, {
     variables: { id }
   })
@@ -30,15 +32,20 @@ function SongList() {
       console.log(error.message);
       return <span>{error.message}</span>;
   }
-  function openModal(lyrics: string) {
+  function openModal(lyrics: string, title: string) {
     setLyrics(lyrics)
-    return setShowModal(true);
+    setTitle(title)
+    setShowModal(true)
+    return
   }
 
   return (
     <IonPage>
       <IonModal isOpen={showModal} cssClass="my-custom-class">
-        <ReactMarkdown source={lyrics} />
+        <div className="markdown-body" style={{ margin: 30 }}>
+          <h4 style={{ textAlign: "center" }}>{_title}</h4>
+          <ReactMarkdown source={lyrics} />
+        </div>
         <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
       </IonModal>
       <IonHeader>
@@ -58,7 +65,7 @@ function SongList() {
             id={song.id}
             // lyrics={}
             key={song.id}
-            viewLyrics={() => openModal(song.lyrics)}
+            viewLyrics={() => openModal(song.lyrics, song.title)}
             thumbnail={
               "https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
             }
