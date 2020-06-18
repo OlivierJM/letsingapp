@@ -40,7 +40,7 @@ function Home(){
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Albums</IonTitle>
         </IonToolbar>
       </IonHeader>
     

@@ -7,6 +7,8 @@ import {
   IonToolbar,
   IonModal,
   IonButton,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
@@ -51,7 +53,10 @@ function SongList() {
       </IonModal>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Favourites</IonTitle>
+          <IonButtons slot="start">
+            <IonBackButton />
+        </IonButtons>
+          <IonTitle>Song List</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

@@ -35,7 +35,8 @@ import PlayerMusic from './pages/TrackPlayer';
 
 const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))
-const Settings = loadable(() => import('./pages/Settings'))
+const Settings = loadable(() => import('./pages/Profile'))
+const MembersList = loadable(() => import('./pages/MembersList'))
 
 const App: React.FC = () => (
   <IonApp>
@@ -45,8 +46,9 @@ const App: React.FC = () => (
           <Route path="/home" component={Home} exact={true} />
           <Route path="/album/:id" component={Songs} exact={true} />
           <Route path="/song/:id" component={Songs} exact={true} />
-          <Route path="/settings" component={Settings} />
+          <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
+          <Route path="/members" component={MembersList} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
@@ -54,13 +56,13 @@ const App: React.FC = () => (
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="Songs" href="/albums">
+          <IonTabButton tab="Songs" href="/members">
             <IonIcon icon={heartOutline} />
-            <IonLabel>Songs</IonLabel>
+            <IonLabel>Members</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="Settings" href="/settings">
+          <IonTabButton tab="Settings" href="/profile">
             <IonIcon icon={cogOutline} />
-            <IonLabel>Settings</IonLabel>
+            <IonLabel>Profile</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
