@@ -10,7 +10,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { cogOutline, heartOutline, homeOutline } from 'ionicons/icons';
+import { cogOutline, heartOutline, homeOutline, informationCircleOutline, contractOutline, personCircleOutline, peopleCircleOutline } from 'ionicons/icons';
 import loadable from '@loadable/component'
 
 /* Core CSS required for Ionic components to work properly */
@@ -32,6 +32,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import PlayerMusic from './pages/TrackPlayer';
+import About from './pages/About';
 
 const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))
@@ -49,7 +50,8 @@ const App: React.FC = () => (
           <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
           <Route path="/members" component={MembersList} />
-          <Route path="/about" component={MembersList} />
+          <Route path="/about" component={About} />
+
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
@@ -58,15 +60,15 @@ const App: React.FC = () => (
             <IonLabel>Home</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Songs" href="/members">
-            <IonIcon icon={heartOutline} />
+            <IonIcon icon={peopleCircleOutline} />
             <IonLabel>Members</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Profile" href="/profile">
-            <IonIcon icon={cogOutline} />
+            <IonIcon icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Settings" href="/about">
-            <IonIcon icon={cogOutline} />
+            <IonIcon icon={informationCircleOutline} />
             <IonLabel>About</IonLabel>
           </IonTabButton>
         </IonTabBar>

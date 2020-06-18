@@ -29,7 +29,9 @@ interface AlbumType {
 
 
 function Home(){
-  const { error, data, loading } = useQuery(AlbumQuery)
+  const { error, data, loading } = useQuery(AlbumQuery, {
+    fetchPolicy: 'cache-first'
+  })
   if (loading) {
     return <Loader showLoading={loading} />;
   }

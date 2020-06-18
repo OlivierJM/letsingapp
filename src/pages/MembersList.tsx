@@ -8,7 +8,7 @@ const MembersList: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>MembersList</IonTitle>
+                    <IonTitle>Members</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
