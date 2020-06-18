@@ -49,6 +49,7 @@ const App: React.FC = () => (
           <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
           <Route path="/members" component={MembersList} />
+          <Route path="/about" component={MembersList} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
@@ -60,9 +61,13 @@ const App: React.FC = () => (
             <IonIcon icon={heartOutline} />
             <IonLabel>Members</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="Settings" href="/profile">
+          <IonTabButton tab="Profile" href="/profile">
             <IonIcon icon={cogOutline} />
             <IonLabel>Profile</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Settings" href="/about">
+            <IonIcon icon={cogOutline} />
+            <IonLabel>About</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
