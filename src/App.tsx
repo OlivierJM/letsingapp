@@ -10,7 +10,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { cogOutline, heartOutline, homeOutline, informationCircleOutline, contractOutline, personCircleOutline, peopleCircleOutline } from 'ionicons/icons';
+import {  homeOutline, informationCircleOutline, personCircleOutline, peopleCircleOutline } from 'ionicons/icons';
 import loadable from '@loadable/component'
 
 /* Core CSS required for Ionic components to work properly */
