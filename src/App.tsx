@@ -10,7 +10,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import {  homeOutline, informationCircleOutline, personCircleOutline, peopleCircleOutline } from 'ionicons/icons';
+import {  homeOutline, informationCircleOutline, personCircleOutline, musicalNotesOutline } from 'ionicons/icons';
 import loadable from '@loadable/component'
 
 /* Core CSS required for Ionic components to work properly */
@@ -60,7 +60,7 @@ const App: React.FC = () => (
             <IonLabel>Home</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Songs" href="/members">
-            <IonIcon icon={peopleCircleOutline} />
+            <IonIcon icon={musicalNotesOutline} />
             <IonLabel>All Songs</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Profile" href="/profile">

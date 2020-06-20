@@ -33,7 +33,6 @@ function SongList() {
       return <Loader showLoading={loading} message="Fetching Songs" />;
     }
   if (error) {
-      console.log(error.message);
       return <span>{error.message}</span>;
   }
   function openModal(lyrics: string, title: string) {
