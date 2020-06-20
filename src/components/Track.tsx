@@ -38,12 +38,6 @@ const Track: React.FC<TrackType> = ({ title, thumbnail, viewLyrics }: TrackType)
   function handleFavourite() {
     setFave(!isFave);
   }
-  // function viewLyrics() {
-  //   return history.push({
-  //     pathname: `/song/${id}`,
-  //     state: { lyrics }
-  //   })
-  // }
   return (
     <>
       <IonItem onClick={viewLyrics}>

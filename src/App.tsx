@@ -54,27 +54,31 @@ const App: React.FC = () => (
 
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="Home" href="/home">
-            <IonIcon icon={homeOutline} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="Songs" href="/members">
-            <IonIcon icon={peopleCircleOutline} />
-            <IonLabel>Members</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="Profile" href="/profile">
-            <IonIcon icon={personCircleOutline} />
-            <IonLabel>Profile</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="Settings" href="/about">
-            <IonIcon icon={informationCircleOutline} />
-            <IonLabel>About</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
+        <Tabs />
       </IonTabs>
     </IonReactRouter>
   </IonApp>
 );
+
+const Tabs: React.FC = () => (
+  <IonTabBar slot="bottom">
+    <IonTabButton tab="Home" href="/home">
+      <IonIcon icon={homeOutline} />
+      <IonLabel>Home</IonLabel>
+    </IonTabButton>
+    <IonTabButton tab="Songs" href="/members">
+      <IonIcon icon={peopleCircleOutline} />
+      <IonLabel>Members</IonLabel>
+    </IonTabButton>
+    <IonTabButton tab="Profile" href="/profile">
+      <IonIcon icon={personCircleOutline} />
+      <IonLabel>Profile</IonLabel>
+    </IonTabButton>
+    <IonTabButton tab="Settings" href="/about">
+      <IonIcon icon={informationCircleOutline} />
+      <IonLabel>About</IonLabel>
+    </IonTabButton>
+  </IonTabBar>
+) 
 
 export default App;
