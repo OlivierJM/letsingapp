@@ -62,19 +62,15 @@ function SongList() {
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Favourites</IonTitle>
+            <IonTitle size="large">Songs</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         {data.album.songs.map((song: SongType) => (
           <Track
             id={song.id}
-            // lyrics={}
             key={song.id}
             viewLyrics={() => openModal(song.lyrics, song.title)}
-            thumbnail={
-              "https://images.unsplash.com/photo-1484972759836-b93f9ef2b293?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-            }
             title={song.title}
           />
         ))}
