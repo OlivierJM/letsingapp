@@ -7,27 +7,25 @@ import {
   IonToolbar,
   IonModal,
   IonButton,
-  IonButtons,
-  IonBackButton,
 } from "@ionic/react";
 import "../theme/Favourites.css";
-import Track from "../components/Track";
 import { useQuery } from "react-apollo";
 import { useParams } from "react-router";
 import { SongsListQuery } from "../graphql/queries";
-import { SongType } from "../graphql/types";
 import ReactMarkdown from "react-markdown";
 import "github-markdown-css";
 import { Loader } from "./Home";
+import { SongDataList } from "./Songs";
 
 function SongsList() {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [lyrics, setLyrics] = useState("");
   const [_title, setTitle] = useState("");
+
   const { error, data, loading } = useQuery(SongsListQuery, {
-      variables: { id },
-      fetchPolicy: "cache-first"
+    variables: { id },
+    fetchPolicy: "cache-first",
   });
   if (loading) {
     return <Loader showLoading={loading} message="Fetching All Songs ..." />;
@@ -41,40 +39,22 @@ function SongsList() {
     setShowModal(true);
     return;
   }
-
   return (
     <IonPage>
       <IonModal isOpen={showModal} cssClass="my-custom-class">
         <div className="markdown-body" style={{ margin: 30 }}>
-          <h4 style={{ textAlign: "center" }}>{_title}</h4>
+          <h4 className="ion-text-center">{_title}</h4>
           <ReactMarkdown source={lyrics} />
         </div>
         <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
       </IonModal>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
           <IonTitle>All Songs</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Songs</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
-        {data.songs.map((song: SongType) => (
-          <Track
-            id={song.id}
-            key={song.id}
-            author={song.author}
-            viewLyrics={() => openModal(song.lyrics, song.title)}
-            title={song.title}
-          />
-        ))}
+        <SongDataList data={data.songs} openModal={openModal} />
       </IonContent>
     </IonPage>
   );

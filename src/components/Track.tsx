@@ -8,7 +8,6 @@ import "../theme/Track.css";
 
 interface TrackType {
   title: string;
-  id: string;
   author: string;
   viewLyrics: () => void
 }

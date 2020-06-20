@@ -9,6 +9,7 @@ import {
   IonButton,
   IonButtons,
   IonBackButton,
+  IonSearchbar,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
@@ -29,9 +30,9 @@ function SongList() {
     variables: { id },
     fetchPolicy: "cache-first"
   })
-    if (loading) {
-      return <Loader showLoading={loading} message="Fetching Songs" />;
-    }
+  if (loading) {
+    return <Loader showLoading={loading} message="Fetching Songs" />;
+  }
   if (error) {
       return <span>{error.message}</span>;
   }
@@ -60,23 +61,46 @@ function SongList() {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Songs</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <SongDataList data={data.album.songs} openModal={openModal} />
+      </IonContent>
+    </IonPage>
+  );
+};
 
-        {data.album.songs.map((song: SongType) => (
+export function SongDataList({ data, openModal }: any) {
+  const [searchText, setSearchText] = useState("");
+  const results = data.filter((song: SongType) => {
+    return (
+      song.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      song.lyrics.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+  return (
+    <>
+      <IonSearchbar
+        value={searchText}
+        onIonChange={(e) => setSearchText(e.detail.value!)}
+        showCancelButton="focus"
+        animated
+        debounce={500}
+        placeholder="Search by song title or song content"
+      ></IonSearchbar>
+
+      {results.length ? (
+        results.map((song: SongType) => (
           <Track
-            id={song.id}
             key={song.id}
             author={song.author}
             viewLyrics={() => openModal(song.lyrics, song.title)}
             title={song.title}
           />
-        ))}
-      </IonContent>
-    </IonPage>
+        ))
+      ) : (
+        <p className="ion-text-center">Nothing found for {searchText}</p>
+      )}
+    </>
   );
-};
+}
+
+
 export default SongList;
