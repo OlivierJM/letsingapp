@@ -32,7 +32,7 @@ function Home(){
     fetchPolicy: 'cache-first'
   })
   if (loading) {
-    return <Loader showLoading={loading} />;
+    return <Loader showLoading={loading} message="Fetching All albums ..." />;
   }
   if (error) {
     return <span>{error.message}</span>;
@@ -74,13 +74,18 @@ function Home(){
   );
 };
 
+interface LoaderTypes {
+  showLoading: boolean
+  message: string
+}
+
 // TODO: add proper types here
-export function Loader({ showLoading}: any) {
+export function Loader({ showLoading, message }: LoaderTypes) {
          return (
            <IonLoading
              cssClass="my-custom-class"
              isOpen={showLoading}
-             message={"Please wait..."}
+             message={message}
              duration={5000}
              animated
              keyboardClose

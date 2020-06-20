@@ -26,10 +26,11 @@ function SongsList() {
   const [lyrics, setLyrics] = useState("");
   const [_title, setTitle] = useState("");
   const { error, data, loading } = useQuery(SongsListQuery, {
-    variables: { id },
+      variables: { id },
+      fetchPolicy: "cache-first"
   });
   if (loading) {
-    return <Loader showLoading={loading} />;
+    return <Loader showLoading={loading} message="Fetching All Songs ..." />;
   }
   if (error) {
     return <span>{error.message}</span>;
