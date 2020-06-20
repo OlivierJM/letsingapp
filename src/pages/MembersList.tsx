@@ -1,21 +1,81 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ComingSoon from '../components/ComingSoon';
-// import '../theme/MembersList.css'
+import React, { useState } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonModal,
+  IonButton,
+  IonButtons,
+  IonBackButton,
+} from "@ionic/react";
+import "../theme/Favourites.css";
+import Track from "../components/Track";
+import { useQuery } from "react-apollo";
+import { useParams } from "react-router";
+import { SongsListQuery } from "../graphql/queries";
+import { SongType } from "../graphql/types";
+import ReactMarkdown from "react-markdown";
+import "github-markdown-css";
+import { Loader } from "./Home";
 
-const MembersList: React.FC = () => {
-    return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Members</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-               <ComingSoon />
-            </IonContent>
-        </IonPage>
-    );
-};
+function SongsList() {
+  const { id } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [lyrics, setLyrics] = useState("");
+  const [_title, setTitle] = useState("");
+  const { error, data, loading } = useQuery(SongsListQuery, {
+    variables: { id },
+  });
+  if (loading) {
+    return <Loader showLoading={loading} />;
+  }
+  if (error) {
+    return <span>{error.message}</span>;
+  }
+  function openModal(lyrics: string, title: string) {
+    setLyrics(lyrics);
+    setTitle(title);
+    setShowModal(true);
+    return;
+  }
 
-export default MembersList;
+  return (
+    <IonPage>
+      <IonModal isOpen={showModal} cssClass="my-custom-class">
+        <div className="markdown-body" style={{ margin: 30 }}>
+          <h4 style={{ textAlign: "center" }}>{_title}</h4>
+          <ReactMarkdown source={lyrics} />
+        </div>
+        <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
+      </IonModal>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton />
+          </IonButtons>
+          <IonTitle>All Songs</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Songs</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        {data.songs.map((song: SongType) => (
+          <Track
+            id={song.id}
+            key={song.id}
+            author={song.author}
+            viewLyrics={() => openModal(song.lyrics, song.title)}
+            title={song.title}
+          />
+        ))}
+      </IonContent>
+    </IonPage>
+  );
+}
+export default SongsList;

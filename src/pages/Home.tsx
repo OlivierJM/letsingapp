@@ -10,7 +10,6 @@ import {
   IonCol,
   IonCard,
   IonCardContent,
-  IonImg,
   IonLoading
 } from "@ionic/react";
 import '../theme/Home.css'
@@ -45,7 +44,7 @@ function Home(){
           <IonTitle>Albums</IonTitle>
         </IonToolbar>
       </IonHeader>
-    
+
       <IonContent>
         <IonGrid>
           <IonRow>
@@ -60,13 +59,10 @@ function Home(){
                 <IonCard
                   routerDirection="forward"
                   routerLink={`/album/${album.id}`}
+                  style={{
+                    height: 80,
+                  }}
                 >
-                  <IonImg
-                    alt="album cover"
-                    src={
-                      "https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                    }
-                  />
                   <IonCardContent>{album.title}</IonCardContent>
                 </IonCard>
               </IonCol>

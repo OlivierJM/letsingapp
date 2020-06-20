@@ -55,7 +55,7 @@ function SongList() {
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton />
-        </IonButtons>
+          </IonButtons>
           <IonTitle>Song List</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -70,6 +70,7 @@ function SongList() {
           <Track
             id={song.id}
             key={song.id}
+            author={song.author}
             viewLyrics={() => openModal(song.lyrics, song.title)}
             title={song.title}
           />
