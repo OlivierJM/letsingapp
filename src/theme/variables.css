@@ -81,6 +81,12 @@ http://ionicframework.com/docs/theming/ */
    * Dark Colors
    * -------------------------------------------
    */
+   p {
+     color: azure;
+   }
+   h4 {
+     color: #e7e7e7;
+   }
 
   body {
     --ion-color-primary: #428cff;
