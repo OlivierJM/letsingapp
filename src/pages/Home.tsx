@@ -62,15 +62,14 @@ function Home(){
                   routerDirection="forward"
                   routerLink={`/album/${album.id}`}
                   style={{
-                    height: 100,
-                    backgroundImage: `url(${bg})`,
+                    height: 120,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
                   <IonCardContent>
-                      <h4 className='ion-text-center'>{album.title}</h4>
+                      <h2 className='ion-text-center'>{album.title}</h2>
                   </IonCardContent>
                 </IonCard>
               </IonCol>
