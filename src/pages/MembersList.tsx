@@ -16,6 +16,7 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css";
 import { Loader } from "./Home";
 import { SongDataList } from "./Songs";
+import Error from "../components/Error";
 
 function SongsList() {
   const { id } = useParams();
@@ -31,7 +32,7 @@ function SongsList() {
     return <Loader showLoading={loading} message="Fetching All Songs ..." />;
   }
   if (error) {
-    return <span>{error.message}</span>;
+    return <Error message={'Couldn\'t fetch songs'} />
   }
   function openModal(lyrics: string, title: string) {
     setLyrics(lyrics);

@@ -15,6 +15,7 @@ import {
 import '../theme/Home.css'
 import { useQuery } from "react-apollo";
 import { AlbumQuery } from "../graphql/queries";
+import Error from "../components/Error";
 
 interface ImageType {
   name: string
@@ -35,7 +36,7 @@ function Home(){
     return <Loader showLoading={loading} message="Fetching All albums ..." />;
   }
   if (error) {
-    return <span>{error.message}</span>;
+    return <Error message={'Couldn\'t fetch songs'} />
   }
   return (
     <IonPage>

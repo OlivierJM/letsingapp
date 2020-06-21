@@ -20,6 +20,7 @@ import { SongType } from "../graphql/types";
 import ReactMarkdown from 'react-markdown'
 import "github-markdown-css";
 import { Loader } from "./Home";
+import Error from "../components/Error";
 
 function SongList() {
   const { id } = useParams()
@@ -34,7 +35,7 @@ function SongList() {
     return <Loader showLoading={loading} message="Fetching Songs" />;
   }
   if (error) {
-      return <span>{error.message}</span>;
+      return <Error message={'Couldn\'t fetch songs'} />
   }
   function openModal(lyrics: string, title: string) {
     setLyrics(lyrics)
