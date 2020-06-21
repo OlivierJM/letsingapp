@@ -16,6 +16,7 @@ import '../theme/Home.css'
 import { useQuery } from "react-apollo";
 import { AlbumQuery } from "../graphql/queries";
 import Error from "../components/Error";
+import bg from '../images/cool-bg.png'
 
 interface ImageType {
   name: string
@@ -61,10 +62,16 @@ function Home(){
                   routerDirection="forward"
                   routerLink={`/album/${album.id}`}
                   style={{
-                    height: 80,
+                    height: 100,
+                    backgroundImage: `url(${bg})`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <IonCardContent>{album.title}</IonCardContent>
+                  <IonCardContent>
+                      <h4 className='ion-text-center'>{album.title}</h4>
+                  </IonCardContent>
                 </IonCard>
               </IonCol>
             ))}
