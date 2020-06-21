@@ -37,7 +37,7 @@ import About from './pages/About';
 const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))
 const Settings = loadable(() => import('./pages/Profile'))
-const MembersList = loadable(() => import('./pages/MembersList'))
+const SongsList = loadable(() => import('./pages/SongsList'))
 
 const App: React.FC = () => (
   <IonApp>
@@ -49,7 +49,7 @@ const App: React.FC = () => (
           <Route path="/song/:id" component={Songs} exact={true} />
           <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
-          <Route path="/members" component={MembersList} />
+          <Route path="/songs" component={SongsList} />
           <Route path="/about" component={About} />
 
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
@@ -59,7 +59,7 @@ const App: React.FC = () => (
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="Songs" href="/members">
+          <IonTabButton tab="Songs" href="/songs">
             <IonIcon icon={musicalNotesOutline} />
             <IonLabel>All Songs</IonLabel>
           </IonTabButton>

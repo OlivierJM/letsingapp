@@ -10,6 +10,8 @@ import {
   IonButtons,
   IonBackButton,
   IonSearchbar,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
@@ -21,13 +23,14 @@ import ReactMarkdown from 'react-markdown'
 import "github-markdown-css";
 import { Loader } from "./Home";
 import Error from "../components/Error";
+import { RefresherEventDetail } from "@ionic/core";
 
 function SongList() {
   const { id } = useParams()
   const [showModal, setShowModal] = useState(false);
   const [lyrics, setLyrics] = useState("")
   const [_title, setTitle] = useState("")
-  const { error, data, loading } = useQuery(SongListQuery, {
+  const { error, data, loading, refetch } = useQuery(SongListQuery, {
     variables: { id },
     fetchPolicy: "cache-first"
   })
@@ -44,6 +47,12 @@ function SongList() {
     return
   }
 
+  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
+    refetch()
+    setTimeout(() => {
+      event.detail.complete();
+    }, 2000);
+}
   return (
     <IonPage>
       <IonModal isOpen={showModal} cssClass="my-custom-class">
@@ -62,6 +71,15 @@ function SongList() {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={doRefresh}
+          pullFactor={0.5}
+          pullMin={100}
+          pullMax={200}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <SongDataList data={data.album.songs} openModal={openModal} />
       </IonContent>
     </IonPage>

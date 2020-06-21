@@ -1,13 +1,12 @@
 import React from "react";
 import { IonPage, IonIcon, IonText } from "@ionic/react";
-// import '../theme/About.css'
 import { cloudOfflineOutline } from "ionicons/icons";
 
 interface ErrorType {
   message: string;
 }
 
-function Error({ message }: ErrorType) {
+function Error(props: ErrorType) {
   return (
     <IonPage>
       <div
@@ -19,7 +18,7 @@ function Error({ message }: ErrorType) {
           flexDirection: "row",
         }}
       >
-        <IconText message={message} />
+        <IconText {...props} />
       </div>
     </IonPage>
   );
