@@ -16,7 +16,6 @@ import '../theme/Home.css'
 import { useQuery } from "react-apollo";
 import { AlbumQuery } from "../graphql/queries";
 import Error from "../components/Error";
-import bg from '../images/cool-bg.png'
 
 interface ImageType {
   name: string
