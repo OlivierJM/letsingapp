@@ -33,6 +33,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import PlayerMusic from './pages/TrackPlayer';
 import About from './pages/About';
+import Login from './components/Auth/Login';
 
 const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))
@@ -51,7 +52,7 @@ const App: React.FC = () => (
           <Route path="/player" component={PlayerMusic} />
           <Route path="/songs" component={SongsList} />
           <Route path="/about" component={About} />
-
+          <Route path="/login" component={Login} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
