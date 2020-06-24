@@ -10,7 +10,6 @@ import {
   IonLabel,
   IonList,
   IonButton,
-  IonText,
   IonButtons,
   IonBackButton,
 } from "@ionic/react";
