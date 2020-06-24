@@ -9,61 +9,105 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonItemDivider,
+  IonButton,
+  IonText,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
+import { Link } from "react-router-dom";
 
-const Register: React.FC = () => {
-  const [text, setText] = useState<string>();
-  const [number, setNumber] = useState<number>();
+interface FieldsType {
+  userName: string;
+  email: string;
+  password: string;
+  password2: string;
+  error: string;
+}
+
+function Register(){
+  const initialFields: FieldsType = {
+    userName: "",
+    email: "",
+    password: "",
+    password2: "",
+    error: ""
+  };
+  const [data, setData] = useState<FieldsType>(initialFields);
+
+  function handleLogin() {
+    // get the date
+    const { password, password2, email, userName } = data
+    // check if passwords are same
+      if (password.trim() !== password2.trim()) {
+        setData({...data, error: 'Passwords do not match'})
+      }
+    console.log({ email, userName })
+  }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>IonInput Examples</IonTitle>
+          <IonButtons slot="start">
+            <IonBackButton />
+          </IonButtons>
+          <IonTitle>Register</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonList>
-          <IonItemDivider>Default Input with Placeholder</IonItemDivider>
+        <IonList
+          style={{
+            marginTop: "21vh",
+            marginRight: "10vw",
+            marginLeft: "10vw",
+          }}
+        >
           <IonItem>
+            <IonLabel position="floating">Username</IonLabel>
             <IonInput
-              value={text}
-              placeholder="Enter Input"
-              onIonChange={(e) => setText(e.detail.value!)}
+              onIonChange={(e) =>
+                setData({ ...data, userName: e.detail.value! })
+              }
+              value={data.userName}
             ></IonInput>
           </IonItem>
-
-          <IonItemDivider>
-            Input with clear button when there is a value
-          </IonItemDivider>
           <IonItem>
+            <IonLabel position="floating">Email</IonLabel>
             <IonInput
-              value={text}
-              placeholder="Enter Input"
-              onIonChange={(e) => setText(e.detail.value!)}
-              clearInput
+              onIonChange={(e) => setData({ ...data, email: e.detail.value! })}
+              value={data.email}
             ></IonInput>
           </IonItem>
-
-          <IonItemDivider>Number type input</IonItemDivider>
           <IonItem>
+            <IonLabel position="floating">Password</IonLabel>
             <IonInput
-              type="number"
-              value={number}
-              placeholder="Enter Number"
-              onIonChange={(e) => setNumber(parseInt(e.detail.value!, 10))}
+              onIonChange={(e) =>
+                setData({ ...data, password: e.detail.value! })
+              }
+              value={data.password}
             ></IonInput>
           </IonItem>
-
           <IonItem>
-            <IonLabel position="floating">Floating Label</IonLabel>
-            <IonInput value={text}></IonInput>
+            <IonLabel position="floating">Confirm Password</IonLabel>
+            <IonInput
+              onIonChange={(e) =>
+                setData({ ...data, password2: e.detail.value! })
+              }
+              value={data.password2}
+            ></IonInput>
           </IonItem>
-          <IonItem>
-            <IonLabel position="stacked">Stacked Label</IonLabel>
-            <IonInput value={text}> </IonInput>
-          </IonItem>
+          <br />
+          <br />
+          <IonButton onClick={handleLogin} expand="block">
+            Register
+          </IonButton>
+          <br />
+          <p style={{ textAlign: "center", color: 'danger' }}>
+            {Boolean(data.error.length) && data.error}
+          </p>
+          <p style={{ textAlign: "center" }}>
+            login <Link to="/login">here</Link> if you already have account
+          </p>
         </IonList>
       </IonContent>
     </IonPage>

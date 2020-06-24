@@ -9,50 +9,84 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonGrid,
-  IonRow,
-  IonCol,
+  IonButton,
+  IonText,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
+import { Link } from "react-router-dom";
 
- const Login: React.FC = () => {
-  const [text, setText] = useState<string>();
+interface FieldsType {
+  email: string;
+  password: string;
+  error: string;
+}
+
+function Login(){
+  const initialFields: FieldsType = {
+    email: "",
+    password: "",
+    error: "",
+  };
+  const [data, setData] = useState<FieldsType>(initialFields);
+
+  function handleLogin() {
+    // get the date
+    // const { password, email } = data;
+    // check if passwords are same
+    // console.log({ email, userName });
+  }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton />
+          </IonButtons>
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent
-        style={{
-            display: 'flex!important',
-            alignContent: 'center!important',
-            alignItems: 'center!important',
-        }}
-          >
-              {/* This Grid should be centered */}
-        <IonGrid>
-          <IonRow >
-            <IonCol >
-              <IonList>
-                <IonItem>
-                  <IonInput
-                    value={text}
-                    placeholder="Enter Input"
-                    onIonChange={(e) => setText(e.detail.value!)}
-                  ></IonInput>
-                </IonItem>
-                <IonItem>
-                  <IonLabel position="floating">Floating Label</IonLabel>
-                  <IonInput value={text}></IonInput>
-                </IonItem>
-              </IonList>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+      <IonContent>
+        <IonList
+          style={{
+            marginTop: "21vh",
+            marginRight: "10vw",
+            marginLeft: "10vw",
+          }}
+        >
+          <IonItem>
+            <IonLabel position="floating">Email</IonLabel>
+            <IonInput
+              onIonChange={(e) => setData({ ...data, email: e.detail.value! })}
+              value={data.email}
+            ></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonLabel position="floating">Password</IonLabel>
+            <IonInput
+              onIonChange={(e) =>
+                setData({ ...data, password: e.detail.value! })
+              }
+              value={data.password}
+            ></IonInput>
+          </IonItem>
+          <br />
+          <br />
+          <IonButton onClick={handleLogin} expand="block">
+            Login
+          </IonButton>
+          <br />
+          <p style={{ textAlign: "center" }}>
+            {Boolean(data.error.length) && data.error}
+          </p>
+          <p style={{ textAlign: "center" }}>
+            register <Link to="/register">here</Link> if you do not have an
+            account
+          </p>
+        </IonList>
       </IonContent>
     </IonPage>
   );
 };
-export default Login
+export default Login;
