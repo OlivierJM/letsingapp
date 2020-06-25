@@ -12,35 +12,59 @@ import {
   IonButton,
   IonButtons,
   IonBackButton,
+  IonSpinner,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useMutation } from "react-apollo";
+import { RegisterMutation } from '../../graphql/mutations'
+
 
 interface FieldsType {
-  userName: string;
+  username: string;
   email: string;
   password: string;
   password2: string;
   error: string;
+  loading: boolean;
 }
-
-function Register(){
   const initialFields: FieldsType = {
-    userName: "",
+    username: "",
     email: "",
     password: "",
     password2: "",
-    error: ""
+    error: "",
+    loading: false
   };
+
+function Register(){
+
   const [data, setData] = useState<FieldsType>(initialFields);
+  const [registerUser] = useMutation(RegisterMutation)
+  const history = useHistory()
 
   function handleLogin() {
-    // get the date
-    const { password, password2, email, userName } = data
+    setData({ ...data, loading: true })
+    const { password, password2, email, username } = data
     // check if passwords are same
       if (password.trim() !== password2.trim()) {
         setData({...data, error: 'Passwords do not match'})
       }
-    console.log({ email, userName })
+    registerUser({
+      variables: {
+        email,
+        username,
+        password,
+      },
+    })
+      .then((response: any) => {
+        setData({ ...data, loading: false });
+        const user = JSON.stringify(response.data.register);
+        localStorage.setItem('user', user)
+      })
+      .then(() => history.push('/songs'))
+      .catch((err) => {
+        setData({ ...data, loading: false, error: err.message });
+      });
   }
 
   return (
@@ -62,12 +86,12 @@ function Register(){
           }}
         >
           <IonItem>
-            <IonLabel position="floating">Username</IonLabel>
+            <IonLabel position="floating">username</IonLabel>
             <IonInput
               onIonChange={(e) =>
-                setData({ ...data, userName: e.detail.value! })
+                setData({ ...data, username: e.detail.value! })
               }
-              value={data.userName}
+              value={data.username}
             ></IonInput>
           </IonItem>
           <IonItem>
@@ -98,10 +122,10 @@ function Register(){
           <br />
           <br />
           <IonButton onClick={handleLogin} expand="block">
-            Register
+            {data.loading ? <IonSpinner name="dots" /> : "Register"}
           </IonButton>
           <br />
-          <p style={{ textAlign: "center", color: 'danger' }}>
+          <p style={{ textAlign: "center", color: "danger" }}>
             {Boolean(data.error.length) && data.error}
           </p>
           <p style={{ textAlign: "center" }}>
