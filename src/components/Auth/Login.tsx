@@ -12,28 +12,48 @@ import {
   IonButton,
   IonButtons,
   IonBackButton,
+  IonSpinner,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useMutation } from "react-apollo";
+import { LoginMutation } from "../../graphql/mutations";
 
 interface FieldsType {
   email: string;
   password: string;
   error: string;
+  loading: boolean;
 }
 
-function Login(){
   const initialFields: FieldsType = {
     email: "",
     password: "",
     error: "",
+    loading: false
   };
+
+function Login(){
+
   const [data, setData] = useState<FieldsType>(initialFields);
+  const [loginUser] = useMutation(LoginMutation)
+  const history = useHistory()
 
   function handleLogin() {
     // get the date
-    // const { password, email } = data;
-    // check if passwords are same
-    // console.log({ email, userName });
+    const { password, email } = data;
+    setData({ ...data, loading: true })
+    loginUser({
+      variables: { identifier: email, password },
+    })
+      .then((response: any) => {
+        setData({ ...data, loading: false });
+        const user = JSON.stringify(response.data.register);
+        localStorage.setItem("user", user);
+      })
+      .then(() => history.push("/songs"))
+      .catch((err) => {
+        setData({ ...data, loading: false, error: err.message });
+      });
   }
 
   return (
@@ -55,7 +75,7 @@ function Login(){
           }}
         >
           <IonItem>
-            <IonLabel position="floating">Email</IonLabel>
+            <IonLabel position="floating">Email or Username</IonLabel>
             <IonInput
               onIonChange={(e) => setData({ ...data, email: e.detail.value! })}
               value={data.email}
@@ -73,7 +93,7 @@ function Login(){
           <br />
           <br />
           <IonButton onClick={handleLogin} expand="block">
-            Login
+            {data.loading ? <IonSpinner name="dots" /> : "Login"}
           </IonButton>
           <br />
           <p style={{ textAlign: "center" }}>
