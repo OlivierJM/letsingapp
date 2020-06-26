@@ -46,7 +46,7 @@ function Login() {
     })
       .then(({ data: { login }}: any) => {
         setData({ ...data, loading: false });
-        localStorage.setItem("user", login.user);
+        localStorage.setItem("user", JSON.stringify(login.user));
         localStorage.setItem("token", login.jwt);
         localStorage.setItem("loggedIn", 'true');
       })

@@ -118,9 +118,13 @@ function LyricsEdit() {
           <p style={{ textAlign: "center", color: "red" }}>
             {Boolean(data.error.length) && data.error}
           </p>
-          <p style={{ textAlign: "center" }}>
-            Click <Link to="/login">here</Link> to login before updating lyrics
-          </p>
+          {!loggedIn && (
+            <p style={{ textAlign: "center" }}>
+              Click <Link to="/login">here</Link> to login before updating
+              lyrics or click <a href={window.location.href}>here</a> to refresh
+              the page if you logged in.
+            </p>
+          )}
         </IonList>
       </IonContent>
     </IonPage>

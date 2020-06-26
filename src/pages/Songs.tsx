@@ -74,6 +74,7 @@ function SongList() {
               history.push({
                 pathname: `/song/edit/${songId}`,
                 state: { lyrics, title: _title },
+                key: Math.random() + songId
               });
             }
             }
