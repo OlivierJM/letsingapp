@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   IonPage,
   IonHeader,
@@ -21,7 +21,8 @@ import {
 import { useLocation, useParams } from "react-router";
 import { useMutation } from "react-apollo";
 import { SongEditMutation } from "../graphql/mutations";
-
+import { AuthContext } from "../components/Auth/AuthContext";
+import { Link } from "react-router-dom";
 interface SongType {
   lyrics: string;
   title: string;
@@ -31,10 +32,9 @@ interface SongType {
   showToast: boolean;
 }
 
-
-function LyricsEdit(){
-  const { state } = useLocation()
-  const { id } = useParams()
+function LyricsEdit() {
+  const { state } = useLocation();
+  const { id } = useParams();
 
   const initialFields: SongType = {
     lyrics: state?.lyrics,
@@ -42,24 +42,24 @@ function LyricsEdit(){
     loading: false,
     error: "",
     isDone: false,
-    showToast: false
+    showToast: false,
   };
 
-    const [data, setData] = useState<SongType>(initialFields)  
-  // const [title, setTitle] = useState<string>(state?.title)
-  // const [loading, setLoading] = useState<boolean>(false)
-    const [updateSong] = useMutation(SongEditMutation)
-  
+  const [data, setData] = useState<SongType>(initialFields);
+  const [updateSong] = useMutation(SongEditMutation);
+
+  const { loggedIn } = useContext(AuthContext);
+
   function saveLyrics() {
     setData({ ...data, loading: true });
     updateSong({
       variables: { id, lyrics: data.lyrics, title: data.title },
     })
       .then(() => {
-        setData({ ...data, loading: false, showToast: true,  });
+        setData({ ...data, loading: false, showToast: true });
       })
       .catch((err) => {
-         setData({ ...data, loading: false, error: err.message });
+        setData({ ...data, loading: false, error: err.message });
       });
   }
   return (
@@ -89,6 +89,7 @@ function LyricsEdit(){
           <IonItem>
             <IonLabel position="floating">Song Title</IonLabel>
             <IonInput
+              disabled={!loggedIn}
               onIonChange={(e) => setData({ ...data, title: e.detail.value! })}
               value={data.title}
             ></IonInput>
@@ -100,13 +101,14 @@ function LyricsEdit(){
               cols={20}
               placeholder="Type your lyrics here"
               value={data.lyrics}
+              disabled={!loggedIn}
               onIonChange={(e) => setData({ ...data, lyrics: e.detail.value! })}
             ></IonTextarea>
           </IonItem>
           <br />
           <br />
           <IonButton
-            disabled={data.loading}
+            disabled={data.loading || !loggedIn}
             onClick={saveLyrics}
             expand="block"
           >
@@ -116,11 +118,13 @@ function LyricsEdit(){
           <p style={{ textAlign: "center", color: "red" }}>
             {Boolean(data.error.length) && data.error}
           </p>
-          <p style={{ textAlign: "center" }}></p>
+          <p style={{ textAlign: "center" }}>
+            Click <Link to="/login">here</Link> to login before updating lyrics
+          </p>
         </IonList>
       </IonContent>
     </IonPage>
   );
-};
+}
 
 export default LyricsEdit;
