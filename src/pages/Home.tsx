@@ -27,7 +27,6 @@ interface AlbumType {
   thumbnail: any
 }
 
-
 function Home(){
   const { error, data, loading } = useQuery(AlbumQuery, {
     fetchPolicy: 'cache-first'
@@ -92,7 +91,6 @@ export function Loader({ showLoading, message }: LoaderTypes) {
              cssClass="my-custom-class"
              isOpen={showLoading}
              message={message}
-             duration={5000}
              animated
              keyboardClose
            />
