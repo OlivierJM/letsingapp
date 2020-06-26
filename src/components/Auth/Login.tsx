@@ -25,23 +25,22 @@ interface FieldsType {
   loading: boolean;
 }
 
-  const initialFields: FieldsType = {
-    email: "",
-    password: "",
-    error: "",
-    loading: false
-  };
+const initialFields: FieldsType = {
+  email: "",
+  password: "",
+  error: "",
+  loading: false,
+};
 
-function Login(){
-
+function Login() {
   const [data, setData] = useState<FieldsType>(initialFields);
-  const [loginUser] = useMutation(LoginMutation)
-  const history = useHistory()
+  const [loginUser] = useMutation(LoginMutation);
+  const history = useHistory();
 
   function handleLogin() {
     // get the date
     const { password, email } = data;
-    setData({ ...data, loading: true })
+    setData({ ...data, loading: true });
     loginUser({
       variables: { identifier: email, password },
     })
@@ -92,7 +91,11 @@ function Login(){
           </IonItem>
           <br />
           <br />
-          <IonButton onClick={handleLogin} expand="block">
+          <IonButton
+            disabled={data.loading}
+            onClick={handleLogin}
+            expand="block"
+          >
             {data.loading ? <IonSpinner name="dots" /> : "Login"}
           </IonButton>
           <br />
@@ -107,5 +110,5 @@ function Login(){
       </IonContent>
     </IonPage>
   );
-};
+}
 export default Login;

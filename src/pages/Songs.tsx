@@ -12,11 +12,14 @@ import {
   IonSearchbar,
   IonRefresher,
   IonRefresherContent,
+  IonFab,
+  IonFabButton,
+  IonIcon,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
 import { useQuery } from "react-apollo";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import { SongListQuery } from "../graphql/queries";
 import { SongType } from "../graphql/types";
 import ReactMarkdown from 'react-markdown'
@@ -24,12 +27,15 @@ import "github-markdown-css";
 import { Loader } from "./Home";
 import Error from "../components/Error";
 import { RefresherEventDetail } from "@ionic/core";
+import { pencil } from "ionicons/icons";
 
 function SongList() {
   const { id } = useParams()
+  const history = useHistory()
   const [showModal, setShowModal] = useState(false);
   const [lyrics, setLyrics] = useState("")
   const [_title, setTitle] = useState("")
+  const [songId, setSongId] = useState("")
   const { error, data, loading, refetch } = useQuery(SongListQuery, {
     variables: { id },
     fetchPolicy: "cache-first"
@@ -40,9 +46,10 @@ function SongList() {
   if (error) {
       return <Error message={'Couldn\'t fetch songs'} />
   }
-  function openModal(lyrics: string, title: string) {
+  function openModal(lyrics: string, title: string, id: string) {
     setLyrics(lyrics)
     setTitle(title)
+    setSongId(id)
     setShowModal(true)
     return
   }
@@ -60,6 +67,20 @@ function SongList() {
           <h4 style={{ textAlign: "center" }}>{_title}</h4>
           <ReactMarkdown source={lyrics} />
         </div>
+        <IonFab vertical="center" horizontal="end" slot="fixed">
+          <IonFabButton
+            onClick={() => {
+              setShowModal(false);
+              history.push({
+                pathname: `/song/edit/${songId}`,
+                state: { lyrics, title: _title },
+              });
+            }
+            }
+          >
+            <IonIcon icon={pencil} />
+          </IonFabButton>
+        </IonFab>
         <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
       </IonModal>
       <IonHeader>
@@ -110,7 +131,7 @@ export function SongDataList({ data, openModal }: any) {
           <Track
             key={song.id}
             author={song.author}
-            viewLyrics={() => openModal(song.lyrics, song.title)}
+            viewLyrics={() => openModal(song.lyrics, song.title, song.id)}
             title={song.title}
           />
         ))

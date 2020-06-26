@@ -33,6 +33,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import PlayerMusic from './pages/TrackPlayer';
 import About from './pages/About';
+import LyricsEdit from './pages/LyricsEdit';
 // import Register from './components/Auth/Register';
 
 const Home = loadable(() => import('./pages/Home'))
@@ -50,6 +51,7 @@ const App: React.FC = () => (
           <Route path="/home" component={Home} exact={true} />
           <Route path="/album/:id" component={Songs} exact={true} />
           <Route path="/song/:id" component={Songs} exact={true} />
+          <Route path="/song/edit/:id" component={LyricsEdit} exact={true} />
           <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
           <Route path="/songs" component={SongsList} />

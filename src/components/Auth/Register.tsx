@@ -121,7 +121,11 @@ function Register(){
           </IonItem>
           <br />
           <br />
-          <IonButton onClick={handleLogin} expand="block">
+          <IonButton
+            disabled={data.loading}
+            onClick={handleLogin}
+            expand="block"
+          >
             {data.loading ? <IonSpinner name="dots" /> : "Register"}
           </IonButton>
           <br />
