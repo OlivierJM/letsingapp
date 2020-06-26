@@ -44,10 +44,11 @@ function Login() {
     loginUser({
       variables: { identifier: email, password },
     })
-      .then((response: any) => {
+      .then(({ data: { login }}: any) => {
         setData({ ...data, loading: false });
-        const user = JSON.stringify(response.data.register);
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", login.user);
+        localStorage.setItem("token", login.jwt);
+        localStorage.setItem("loggedIn", 'true');
       })
       .then(() => history.push("/songs"))
       .catch((err) => {
@@ -99,7 +100,7 @@ function Login() {
             {data.loading ? <IonSpinner name="dots" /> : "Login"}
           </IonButton>
           <br />
-          <p style={{ textAlign: "center" }}>
+          <p style={{ textAlign: "center", color: 'red' }}>
             {Boolean(data.error.length) && data.error}
           </p>
           <p style={{ textAlign: "center" }}>

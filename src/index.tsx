@@ -7,11 +7,19 @@ import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_SERVER_URL,
+  request: (operation) => {
+    const token = localStorage.getItem("token");
+    operation.setContext({
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+  },
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-   <App />
+     <App />
   </ApolloProvider>,
 
   document.getElementById("root")

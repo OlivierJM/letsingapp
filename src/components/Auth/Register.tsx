@@ -58,8 +58,9 @@ function Register(){
     })
       .then((response: any) => {
         setData({ ...data, loading: false });
-        const user = JSON.stringify(response.data.register);
-        localStorage.setItem('user', user)
+        localStorage.setItem("user", JSON.stringify(response.data.register.user));
+        localStorage.setItem("token", JSON.stringify(response.data.register.jwt));
+        localStorage.setItem("loggedIn", "true");
       })
       .then(() => history.push('/songs'))
       .catch((err) => {
