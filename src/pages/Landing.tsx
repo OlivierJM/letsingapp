@@ -1,7 +1,110 @@
-import React from 'react'
+// @ts-nocheck
+import React, { useState, useEffect } from "react";
+import { IonContent, IonPage } from "@ionic/react";
+import "../theme/Profile.css";
+import { Loader } from "./Home";
 
 function Landing() {
-    return <div>Landing Page</div>
+  const BIBLE_ID = `de4e12af7f28f599-01`;
+  const VERSES = [
+    `JER.29.11`,
+    `ACT.16.25`,
+    `PSA.81.1`,
+    `EZR.2.65`,
+    `ECC.2.8`,
+    `EPH.5.19`,
+    `PSA.95.1`,
+    `PSA.46.1`,
+    `NEH.11.23`,
+    `HEB.11.1`,
+    `ZEP.3.17`,
+    `1COR.10.13`,
+    `PRO.22.6`,
+    `PSA.147.1`,
+    `PSA.101.1`,
+    `HEB.12.2`,
+    `MAT.11.28`,
+    `PSA.89.1`,
+    `PSA.104.33`,
+    `MAT.5.44`,
+    `HEB.11.1`,
+    `PSA.9.2`,
+    `1COR.10.13`,
+    `PRO.22.6`,
+    `ISA.40.31`,
+    `JOS.1.9`,
+    `ROM.15.11`,
+    `COL.3.16`,
+    `JAS.5.13`,
+    `ISA.30.29`,
+    `EPH.5.19`,
+  ];
+
+  const verseIndex = new Date().getDate();
+  const verseID = VERSES[verseIndex];
+
+  const { response, error } = useFetch(
+    `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`
+  );
+    if (error) {
+        
+    }
+  if (!response || !response.data || error) {
+    return <Loader showLoading={true} message="fetching verse" />;
+  }
+  return (
+    <IonPage>
+      <IonContent>
+        <div
+          style={{
+            marginTop: "21vh",
+            marginRight: "10vw",
+            marginLeft: "10vw",
+          }}
+        >
+          <div
+            className="verse"
+            dangerouslySetInnerHTML={{
+              __html: response.data?.passages[0].content,
+            }}
+          ></div>
+          <p className="verse_details">
+            {response.data?.passages[0].reference}
+          </p>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
 }
 
-export default Landing
+/**
+ *
+ * @param {string} url API endpoint to fetch from
+ * @param {object} options include headers and http method here [GET, POST, ...]
+ * @returns {object} response and error
+ *
+ */
+export function useFetch(url: string): any {
+  const [response, setData] = useState<any>({});
+  const [error, setError] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const result = await fetch(url, {
+          headers: {
+            "api-key": process.env.REACT_APP_API_KEY,
+          },
+        });
+        const json = await result.json();
+        setData(json);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchData();
+  }, [url]);
+  return { response, error };
+}
+
+export default Landing;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
@@ -34,6 +34,7 @@ import './theme/variables.css';
 import PlayerMusic from './pages/TrackPlayer';
 import About from './pages/About';
 import LyricsEdit from './pages/LyricsEdit';
+import Landing from './pages/Landing';
 // import Register from './components/Auth/Register';
 
 const Home = loadable(() => import('./pages/Home'))
@@ -59,7 +60,8 @@ const App: React.FC = () => (
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
 
-          <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
+          <Route path="/" component={Landing} exact={true} />
+          
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="Home" href="/home">

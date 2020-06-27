@@ -1,3 +1,22 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.verse {
+  text-shadow: 1px 2px 3px #DDEEFF,
+               0 0 0 black,
+               -1px 1px 0 #DDEEFF,
+               ;
+
+  color: rgba(0, 0, 100);
+  font-size: 1.8em;
+  font-weight: bold; 
+}
+
+.verse_details {
+  position: relative;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: 5px;
+}
