@@ -132,6 +132,8 @@ export function SongDataList({ data, openModal }: any) {
           <Track
             key={song.id}
             author={song.author}
+            songId={song.id}
+            lyrics={song.lyrics}
             viewLyrics={() => openModal(song.lyrics, song.title, song.id)}
             title={song.title}
           />
