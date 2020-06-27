@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonButton } from "@ionic/react";
 import "../theme/Profile.css";
 import { Loader } from "./Home";
+import { useHistory } from "react-router";
 
 function Landing() {
   const BIBLE_ID = `de4e12af7f28f599-01`;
@@ -42,13 +43,10 @@ function Landing() {
 
   const verseIndex = new Date().getDate();
   const verseID = VERSES[verseIndex];
-
+  const history = useHistory();
   const { response, error } = useFetch(
     `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`
   );
-    if (error) {
-        
-    }
   if (!response || !response.data || error) {
     return <Loader showLoading={true} message="fetching verse" />;
   }
@@ -71,7 +69,19 @@ function Landing() {
           <p className="verse_details">
             {response.data?.passages[0].reference}
           </p>
+          <br />
+          <br />
+          <br />
+          {/*  */}
+          <IonButton
+            expand="block"
+            fill="outline"
+            onClick={() => history.push("/home")}
+          >
+            See all albums
+          </IonButton>
         </div>
+        <div></div>
       </IonContent>
     </IonPage>
   );
@@ -91,7 +101,7 @@ export function useFetch(url: string): any {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const result = await fetch(url, {
+        const result = await fetch(url, {
           headers: {
             "api-key": process.env.REACT_APP_API_KEY,
           },
