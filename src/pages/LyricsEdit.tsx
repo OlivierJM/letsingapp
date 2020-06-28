@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { useState, useContext } from "react";
 import {
   IonPage,
@@ -37,7 +35,9 @@ function LyricsEdit() {
   const { id } = useParams();
 
   const initialFields: SongType = {
+    // @ts-ignore
     lyrics: state?.lyrics,
+    // @ts-ignore
     title: state?.title,
     loading: false,
     error: "",
@@ -107,13 +107,21 @@ function LyricsEdit() {
           </IonItem>
           <br />
           <br />
-          <IonButton
-            disabled={data.loading || !loggedIn}
-            onClick={saveLyrics}
-            expand="block"
-          >
-            {data.loading ? <IonSpinner name="dots" /> : "Save Lyrics"}
-          </IonButton>
+          <div style={{
+            width: '100%',
+            height: '100px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <IonButton
+              disabled={data.loading || !loggedIn}
+              onClick={saveLyrics}
+              fill="outline"
+            >
+              {data.loading ? <IonSpinner name="dots" /> : "Save Lyrics"}
+            </IonButton>
+          </div>
           <br />
           <p style={{ textAlign: "center", color: "red" }}>
             {Boolean(data.error.length) && data.error}

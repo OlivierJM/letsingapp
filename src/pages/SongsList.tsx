@@ -9,6 +9,7 @@ import {
   IonButton,
   IonRefresher,
   IonRefresherContent,
+  IonIcon,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import { useQuery } from "react-apollo";
@@ -20,6 +21,7 @@ import { Loader } from "./Home";
 import { SongDataList } from "./Songs";
 import Error from "../components/Error";
 import { RefresherEventDetail } from "@ionic/core";
+import { closeCircleOutline } from "ionicons/icons";
 
 function SongsList() {
   const { id } = useParams();
@@ -52,12 +54,23 @@ function SongsList() {
   }
   return (
     <IonPage>
-      <IonModal isOpen={showModal} cssClass="my-custom-class">
+      <IonModal
+        isOpen={showModal}
+        swipeToClose={true}
+        onDidDismiss={() => setShowModal(false)}
+      >
         <div className="markdown-body" style={{ margin: 30 }}>
           <h4 className="ion-text-center">{_title}</h4>
           <ReactMarkdown source={lyrics} />
         </div>
-        <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
+        <IonButton fill="clear" onClick={() => setShowModal(false)}>
+          <IonIcon
+            color="primary"
+            style={{ fontSize: 41 }}
+            slot="icon-only"
+            icon={closeCircleOutline}
+          />
+        </IonButton>
       </IonModal>
       <IonHeader>
         <IonToolbar>

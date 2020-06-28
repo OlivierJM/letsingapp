@@ -12,14 +12,12 @@ import {
   IonSearchbar,
   IonRefresher,
   IonRefresherContent,
-  IonFab,
-  IonFabButton,
   IonIcon,
 } from "@ionic/react";
 import "../theme/Favourites.css";
 import Track from "../components/Track";
 import { useQuery } from "react-apollo";
-import { useParams, useHistory } from "react-router";
+import { useParams } from "react-router";
 import { SongListQuery } from "../graphql/queries";
 import { SongType } from "../graphql/types";
 import ReactMarkdown from 'react-markdown'
@@ -27,15 +25,13 @@ import "github-markdown-css";
 import { Loader } from "./Home";
 import Error from "../components/Error";
 import { RefresherEventDetail } from "@ionic/core";
-import { pencil } from "ionicons/icons";
+import { closeCircleOutline } from "ionicons/icons";
 
 function SongList() {
   const { id } = useParams()
-  const history = useHistory()
   const [showModal, setShowModal] = useState(false);
   const [lyrics, setLyrics] = useState("")
   const [_title, setTitle] = useState("")
-  const [songId, setSongId] = useState("")
   const { error, data, loading, refetch } = useQuery(SongListQuery, {
     variables: { id },
     fetchPolicy: "cache-first"
@@ -49,7 +45,6 @@ function SongList() {
   function openModal(lyrics: string, title: string, id: string) {
     setLyrics(lyrics)
     setTitle(title)
-    setSongId(id)
     setShowModal(true)
     return
   }
@@ -62,27 +57,23 @@ function SongList() {
 }
   return (
     <IonPage>
-      <IonModal isOpen={showModal} cssClass="my-custom-class">
+      <IonModal
+        isOpen={showModal}
+        swipeToClose={true}
+        onDidDismiss={() => setShowModal(false)}
+      >
         <div className="markdown-body" style={{ margin: 30 }}>
-          <h4 style={{ textAlign: "center" }}>{_title}</h4>
+          <h4 className="ion-text-center">{_title}</h4>
           <ReactMarkdown source={lyrics} />
         </div>
-        <IonFab vertical="center" horizontal="end" slot="fixed">
-          <IonFabButton
-            onClick={() => {
-              setShowModal(false);
-              history.push({
-                pathname: `/song/edit/${songId}`,
-                state: { lyrics, title: _title },
-                key: Math.random() + songId
-              });
-            }
-            }
-          >
-            <IonIcon icon={pencil} />
-          </IonFabButton>
-        </IonFab>
-        <IonButton onClick={() => setShowModal(false)}>Close Lyrics</IonButton>
+        <IonButton fill="clear" onClick={() => setShowModal(false)}>
+          <IonIcon
+            color="primary"
+            style={{ fontSize: 41 }}
+            slot="icon-only"
+            icon={closeCircleOutline}
+          />
+        </IonButton>
       </IonModal>
       <IonHeader>
         <IonToolbar>
