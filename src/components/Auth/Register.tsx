@@ -59,10 +59,10 @@ function Register(){
       .then((response: any) => {
         setData({ ...data, loading: false });
         localStorage.setItem("user", JSON.stringify(response.data.register.user));
-        localStorage.setItem("token", JSON.stringify(response.data.register.jwt));
+        localStorage.setItem("token", response.data.register.jwt);
         localStorage.setItem("loggedIn", "true");
       })
-      .then(() => history.push('/songs'))
+      .then(() => window.location.href = '/songs')
       .catch((err) => {
         setData({ ...data, loading: false, error: err.message });
       });
