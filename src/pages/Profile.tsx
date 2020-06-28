@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import '../theme/Profile.css'
-import ComingSoon from '../components/ComingSoon';
+import { AuthContext } from '../components/Auth/AuthContext';
 
-const Profile: React.FC = () => {
+function Profile() {
+  const { user, loggedIn } = useContext(AuthContext)
   return (
     <IonPage>
       <IonHeader>
@@ -12,7 +13,22 @@ const Profile: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <ComingSoon />
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div>
+            <p>
+            {
+              loggedIn ? `You are logged in as ${user.username} with ${user.email}` : `You are not logged` 
+            }
+              </p>
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );

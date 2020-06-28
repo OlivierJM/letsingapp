@@ -21,6 +21,7 @@ export const LoginMutation = gql`
       jwt
       user {
         username
+        email
       }
     }
   }
