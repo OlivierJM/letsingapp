@@ -3,12 +3,32 @@
   "name": "Letsingapp",
   "icons": [
     {
-      "src": "assets/icon/favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "assets/icon/icon_48.png",
+      "sizes": "48x48",
+      "type": "image/png"
     },
     {
-      "src": "assets/icon/icon.png",
+      "src": "assets/icon/icon_72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon_96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon_144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon_512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
