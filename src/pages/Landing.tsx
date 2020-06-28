@@ -80,6 +80,15 @@ function Landing() {
           >
             See all albums
           </IonButton>
+          <br />
+          <br />
+          <IonButton
+            expand="block"
+            fill="clear"
+            onClick={() => history.push("/register")}
+          >
+            Register here to edit lyrics
+          </IonButton>
         </div>
         <div></div>
       </IonContent>
