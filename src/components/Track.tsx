@@ -8,13 +8,17 @@ import {
   IonList,
 } from "@ionic/react";
 import "../theme/Track.css";
-import { ellipsisVerticalOutline, createOutline, readerOutline } from "ionicons/icons";
+import {
+  ellipsisVerticalOutline,
+  createOutline,
+  readerOutline,
+} from "ionicons/icons";
 import { useHistory } from "react-router";
 
 interface TrackType {
   title: string;
   author: string;
-  viewLyrics: () => void;
+  viewLyrics: () => {};
   songId?: string;
   lyrics?: string;
 }
@@ -54,9 +58,8 @@ const Track: React.FC<TrackType> = ({
             <IonList>
               <IonItem
                 onClick={() => {
-                  // @ts-ignore
-                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                   viewLyrics();
+                  setShowPopover({ open: false, event: undefined });
                 }}
               >
                 <IonLabel>
@@ -70,8 +73,6 @@ const Track: React.FC<TrackType> = ({
                   history.push({
                     pathname: `/song/edit/${songId}`,
                     state: { lyrics, title },
-                    // @ts-ignore
-                    key: Math.random() + songId,
                   });
                   setShowPopover({ open: false, event: undefined });
                 }}
@@ -85,7 +86,7 @@ const Track: React.FC<TrackType> = ({
           </IonPopover>
 
           <IonButton
-            style={{ display: "inline-block", float: "right" }}
+            style={{ display: "inline-block", float: "right", fontSize: 18 }}
             fill="clear"
             onClick={(e) =>
               setShowPopover({ open: true, event: e.nativeEvent })
