@@ -1,9 +1,10 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { IonContent, IonPage, IonButton } from "@ionic/react";
 import "../theme/Profile.css";
 import { Loader } from "./Home";
 import { useHistory } from "react-router";
+import { AuthContext } from "../components/Auth/AuthContext";
 
 function Landing() {
   const BIBLE_ID = `de4e12af7f28f599-01`;
@@ -44,6 +45,7 @@ function Landing() {
   const verseIndex = new Date().getDate();
   const verseID = VERSES[verseIndex];
   const history = useHistory();
+  const { loggedIn } = useContext(AuthContext); 
   const { response, error } = useFetch(
     `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`
   );
@@ -82,13 +84,15 @@ function Landing() {
           </IonButton>
           <br />
           <br />
-          <IonButton
-            expand="block"
-            fill="clear"
-            onClick={() => history.push("/register")}
-          >
-            Register here to edit lyrics
-          </IonButton>
+          {!loggedIn && (
+            <IonButton
+              expand="block"
+              fill="clear"
+              onClick={() => history.push("/register")}
+            >
+              Register here to edit lyrics
+            </IonButton>
+          )}
         </div>
         <div></div>
       </IonContent>

@@ -14,7 +14,7 @@ import {
   IonBackButton,
   IonSpinner,
 } from "@ionic/react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from "react-apollo";
 import { LoginMutation } from "../../graphql/mutations";
 
@@ -35,22 +35,29 @@ const initialFields: FieldsType = {
 function Login() {
   const [data, setData] = useState<FieldsType>(initialFields);
   const [loginUser] = useMutation(LoginMutation);
-  const history = useHistory();
 
   function handleLogin() {
     // get the date
     const { password, email } = data;
     setData({ ...data, loading: true });
+
+  for (const [key, value] of Object.entries(data)) {
+      if (typeof value === "string" && !value.length && key !== 'error') {
+        setData({ ...data, error: `${key} is required` });
+        return;
+      }
+    }
+
     loginUser({
       variables: { identifier: email, password },
     })
-      .then(({ data: { login }}: any) => {
+      .then(({ data: { login } }: any) => {
         setData({ ...data, loading: false });
         localStorage.setItem("user", JSON.stringify(login.user));
         localStorage.setItem("token", login.jwt);
-        localStorage.setItem("loggedIn", 'true');
+        localStorage.setItem("loggedIn", "true");
       })
-      .then(() => history.push("/songs"))
+      .then(() => (window.location.href = "/songs"))
       .catch((err) => {
         setData({ ...data, loading: false, error: err.message });
       });
@@ -75,19 +82,22 @@ function Login() {
           }}
         >
           <IonItem>
-            <IonLabel position="floating">Email or Username</IonLabel>
+            <IonLabel position="floating">Email or Username </IonLabel>
             <IonInput
               onIonChange={(e) => setData({ ...data, email: e.detail.value! })}
               value={data.email}
+              required
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Password</IonLabel>
             <IonInput
+              type="password"
               onIonChange={(e) =>
                 setData({ ...data, password: e.detail.value! })
               }
               value={data.password}
+              required
             ></IonInput>
           </IonItem>
           <br />
@@ -96,6 +106,7 @@ function Login() {
             disabled={data.loading}
             onClick={handleLogin}
             expand="block"
+            fill="outline"
           >
             {data.loading ? <IonSpinner name="dots" /> : "Login"}
           </IonButton>

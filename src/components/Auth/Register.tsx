@@ -14,10 +14,9 @@ import {
   IonBackButton,
   IonSpinner,
 } from "@ionic/react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from "react-apollo";
-import { RegisterMutation } from '../../graphql/mutations'
-
+import { RegisterMutation } from "../../graphql/mutations";
 
 interface FieldsType {
   username: string;
@@ -27,28 +26,41 @@ interface FieldsType {
   error: string;
   loading: boolean;
 }
-  const initialFields: FieldsType = {
-    username: "",
-    email: "",
-    password: "",
-    password2: "",
-    error: "",
-    loading: false
-  };
+const initialFields: FieldsType = {
+  username: "",
+  email: "",
+  password: "",
+  password2: "",
+  error: "",
+  loading: false,
+};
 
-function Register(){
-
+function Register() {
   const [data, setData] = useState<FieldsType>(initialFields);
-  const [registerUser] = useMutation(RegisterMutation)
-  const history = useHistory()
+  const [registerUser] = useMutation(RegisterMutation);
 
   function handleLogin() {
-    setData({ ...data, loading: true })
-    const { password, password2, email, username } = data
-    // check if passwords are same
-      if (password.trim() !== password2.trim()) {
-        setData({...data, error: 'Passwords do not match'})
+    setData({ ...data, loading: true });
+    const { password, password2, email, username } = data;
+    for (const [key, value] of Object.entries(data)) {
+      if (typeof value === "string" && !value.length && key !== "error") {
+        setData({ ...data, error: `${key} is required` });
+        return;
       }
+    }
+    if (password.length < 6) {
+      setData({
+        ...data,
+        error: "Passwords must contain at least 6 characters",
+      });
+      return;
+    }
+    // check if passwords are same
+    if (password.trim() !== password2.trim()) {
+      setData({ ...data, error: "Passwords do not match" });
+      return;
+    }
+
     registerUser({
       variables: {
         email,
@@ -58,11 +70,14 @@ function Register(){
     })
       .then((response: any) => {
         setData({ ...data, loading: false });
-        localStorage.setItem("user", JSON.stringify(response.data.register.user));
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.register.user)
+        );
         localStorage.setItem("token", response.data.register.jwt);
         localStorage.setItem("loggedIn", "true");
       })
-      .then(() => window.location.href = '/songs')
+      .then(() => (window.location.href = "/songs"))
       .catch((err) => {
         setData({ ...data, loading: false, error: err.message });
       });
@@ -87,12 +102,14 @@ function Register(){
           }}
         >
           <IonItem>
-            <IonLabel position="floating">username</IonLabel>
+            <IonLabel position="floating">Username or Phone Number</IonLabel>
             <IonInput
               onIonChange={(e) =>
                 setData({ ...data, username: e.detail.value! })
               }
               value={data.username}
+              minlength={6}
+              required
             ></IonInput>
           </IonItem>
           <IonItem>
@@ -100,11 +117,14 @@ function Register(){
             <IonInput
               onIonChange={(e) => setData({ ...data, email: e.detail.value! })}
               value={data.email}
+              type="email"
+              required
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Password</IonLabel>
             <IonInput
+              type="password"
               onIonChange={(e) =>
                 setData({ ...data, password: e.detail.value! })
               }
@@ -114,6 +134,7 @@ function Register(){
           <IonItem>
             <IonLabel position="floating">Confirm Password</IonLabel>
             <IonInput
+              type="password"
               onIonChange={(e) =>
                 setData({ ...data, password2: e.detail.value! })
               }
@@ -126,11 +147,12 @@ function Register(){
             disabled={data.loading}
             onClick={handleLogin}
             expand="block"
+            fill="outline"
           >
             {data.loading ? <IonSpinner name="dots" /> : "Register"}
           </IonButton>
           <br />
-          <p style={{ textAlign: "center", color: "danger" }}>
+          <p style={{ textAlign: "center", color: "red" }}>
             {Boolean(data.error.length) && data.error}
           </p>
           <p style={{ textAlign: "center" }}>
@@ -140,5 +162,5 @@ function Register(){
       </IonContent>
     </IonPage>
   );
-};
+}
 export default Register;
