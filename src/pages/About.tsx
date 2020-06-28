@@ -28,13 +28,15 @@ const About: React.FC = () => {
           <span>
             <h4>
               This app was developed by{" "}
-              <Link
+              <a
                 style={{ textDecoration: "none" }}
-                to="https://olivierjm.dev"
+                href="https://olivierjm.dev"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {" "}
                 Olivier JM
-              </Link>
+              </a>
             </h4>
             You can reach me at{" "}
             <a

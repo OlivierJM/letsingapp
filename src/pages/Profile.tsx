@@ -26,7 +26,7 @@ function Profile() {
             {
               loggedIn ? `You are logged in as ${user.username} with ${user.email}` : `You are not logged` 
             }
-              </p>
+            </p>
           </div>
         </div>
       </IonContent>
