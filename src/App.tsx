@@ -35,7 +35,6 @@ import PlayerMusic from './pages/TrackPlayer';
 import About from './pages/About';
 import LyricsEdit from './pages/LyricsEdit';
 import Landing from './pages/Landing';
-// import Register from './components/Auth/Register';
 
 const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))

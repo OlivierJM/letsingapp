@@ -6,7 +6,6 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
 
 const About: React.FC = () => {
   return (
