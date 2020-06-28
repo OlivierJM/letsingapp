@@ -77,11 +77,11 @@ function LyricsEdit() {
           isOpen={data.showToast}
           onDidDismiss={() => setData({ ...data, showToast: false })}
           message="Your changes have been saved."
-          duration={1000}
+          duration={1200}
         />
         <IonList
           style={{
-            marginTop: "10vh",
+            marginTop: "2vh",
             marginRight: "8vw",
             marginLeft: "8vw",
           }}

@@ -96,7 +96,7 @@ function Register() {
       <IonContent>
         <IonList
           style={{
-            marginTop: "21vh",
+            marginTop: "14vh",
             marginRight: "10vw",
             marginLeft: "10vw",
           }}
@@ -156,7 +156,7 @@ function Register() {
             {Boolean(data.error.length) && data.error}
           </p>
           <p style={{ textAlign: "center" }}>
-            login <Link to="/login">here</Link> if you already have account
+            Login <Link to="/login">here</Link> if you already have account
           </p>
         </IonList>
       </IonContent>

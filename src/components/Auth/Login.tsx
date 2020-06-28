@@ -115,7 +115,7 @@ function Login() {
             {Boolean(data.error.length) && data.error}
           </p>
           <p style={{ textAlign: "center" }}>
-            register <Link to="/register">here</Link> if you do not have an
+            Register <Link to="/register">here</Link> if you do not have an
             account
           </p>
         </IonList>
