@@ -129,8 +129,7 @@ function LyricsEdit() {
           {!loggedIn && (
             <p style={{ textAlign: "center" }}>
               Click <Link to="/login">here</Link> to login before updating
-              lyrics or click <a href={window.location.href}>here</a> to refresh
-              the page if you logged in.
+              lyrics
             </p>
           )}
         </IonList>

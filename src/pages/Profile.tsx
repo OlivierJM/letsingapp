@@ -1,10 +1,24 @@
-import React, { useContext } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import '../theme/Profile.css'
-import { AuthContext } from '../components/Auth/AuthContext';
+import React, { useContext } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+} from "@ionic/react";
+import "../theme/Profile.css";
+import { AuthContext } from "../components/Auth/AuthContext";
+import { useHistory } from "react-router";
 
 function Profile() {
-  const { user, loggedIn } = useContext(AuthContext)
+  const { user, loggedIn, logout } = useContext(AuthContext);
+  const history = useHistory();
+
+  function handleLogout() {
+    logout();
+    history.push("/login");
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -23,15 +37,30 @@ function Profile() {
         >
           <div>
             <p>
-            {
-              loggedIn ? `You are logged in as ${user.username} with ${user.email}` : `You are not logged` 
-            }
+              {loggedIn
+                ? `You are logged in as ${user.username}`
+                : `You are not logged`}
+              <br />
+              <br />
+              {loggedIn ? (
+                <IonButton style={{ marginLeft: 47 }} onClick={handleLogout}>
+                  Logout
+                </IonButton>
+              ) : (
+                <IonButton
+                  style={{ marginLeft: 47 }}
+                  onClick={() => history.push("/login")}
+                >
+                  Log In
+                </IonButton>
+              )}
             </p>
+            <br />
           </div>
         </div>
       </IonContent>
     </IonPage>
   );
-};
+}
 
 export default Profile;

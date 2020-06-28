@@ -24,37 +24,44 @@ const About: React.FC = () => {
             justifyContent: "center",
           }}
         >
-          <span>
-            <h4>
-              This app was developed by{" "}
-              <a
-                style={{ textDecoration: "none" }}
-                href="https://olivierjm.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {" "}
-                Olivier JM
-              </a>
-            </h4>
+          <p
+            style={{
+              textAlign: "center",
+              marginRight: "10vw",
+              marginLeft: "10vw",
+            }}
+          >
+            Letsing app was developed by{" "}
+            <a
+              style={{ textDecoration: "none" }}
+              href="https://olivierjm.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              Olivier JM 
+            </a>
+            <br/>
+            <br/>
             You can reach me at{" "}
             <a
               style={{ textDecoration: "none" }}
               href="mailto:manolivier93@gmail.com"
             >
               manolivier93@gmail.com
-            </a>{" "}
-          </span>
+            </a>
+          </p>
         </div>
         <div
           style={{
             height: "10%",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+                      justifyContent: "center",
+            fontFamily: "mono"
           }}
         >
-          Version 0.5.0-alpha
+          Letsing V0.5.0-alpha
         </div>
       </IonContent>
     </IonPage>
