@@ -1,23 +1,17 @@
 import { gql } from "apollo-boost";
 
-
 export const AlbumQuery = gql`
-         {
-           albums {
-             title
-             id
-             thumbnail {
-               name
-               formats
-             }
-           }
-         }
-       `;
-
+  {
+    albums {
+      title
+      id
+    }
+  }
+`;
 
 export const SongsListQuery = gql`
   {
-    songs {
+    songs(sort: "updatedAt:DESC") {
       title
       id
       lyrics
@@ -26,14 +20,14 @@ export const SongsListQuery = gql`
   }
 `;
 export const SongListQuery = gql`
-         query album($id: ID!){
-           album(id: $id) {
-             songs {
-                 id
-               title
-               lyrics
-               author
-             }
-           }
-         }
-       `;
+  query album($id: ID!) {
+    album(id: $id) {
+      songs {
+        id
+        title
+        lyrics
+        author
+      }
+    }
+  }
+`;
