@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { IonContent, IonPage, IonButton } from "@ionic/react";
 import "../theme/Profile.css";
-import { Loader } from "./Home";
 import { useHistory } from "react-router";
 import { AuthContext } from "../components/Auth/AuthContext";
 
@@ -49,9 +48,7 @@ function Landing() {
   const { response, error } = useFetch(
     `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`
   );
-  if (!response || !response.data || error) {
-    return <Loader showLoading={true} message="fetching verse" />;
-  }
+
   return (
     <IonPage>
       <IonContent>
@@ -65,11 +62,11 @@ function Landing() {
           <div
             className="verse"
             dangerouslySetInnerHTML={{
-              __html: response.data?.passages[0].content,
+              __html: !error && response.data?.passages[0].content,
             }}
           ></div>
           <p className="verse_details">
-            {response.data?.passages[0].reference}
+            {!error && response.data?.passages[0].reference}
           </p>
           <br />
           <br />
