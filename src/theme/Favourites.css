@@ -1,3 +1,6 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+.markdown-body {
+  overflow-y: scroll;
+}
