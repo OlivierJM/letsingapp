@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 interface Props {
   title: string;
   lyrics: string;
-  songId: string;
+  songId?: string;
 }
 
 export default function TrackLyrics() {
