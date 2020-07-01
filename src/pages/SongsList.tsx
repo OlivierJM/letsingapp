@@ -15,7 +15,6 @@ import "../theme/Favourites.css";
 import { useQuery } from "react-apollo";
 import { useParams } from "react-router";
 import { SongsListQuery } from "../graphql/queries";
-import ReactMarkdown from "react-markdown";
 import "github-markdown-css";
 import { Loader } from "./Home";
 import { SongDataList } from "./Songs";
