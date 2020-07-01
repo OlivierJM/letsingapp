@@ -42,7 +42,7 @@ function SongList() {
   if (error) {
       return <Error message={'Couldn\'t fetch songs'} />
   }
-  function openModal(lyrics: string, title: string, id: string) {
+  function openModal(lyrics: string, title: string) {
     setLyrics(lyrics)
     setTitle(title)
     setShowModal(true)

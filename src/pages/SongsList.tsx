@@ -22,6 +22,7 @@ import { SongDataList } from "./Songs";
 import Error from "../components/Error";
 import { RefresherEventDetail } from "@ionic/core";
 import { closeCircleOutline } from "ionicons/icons";
+import { LyricsView } from "./TrackLyrics";
 
 function SongsList() {
   const { id } = useParams();
@@ -59,10 +60,7 @@ function SongsList() {
         swipeToClose={true}
         onDidDismiss={() => setShowModal(false)}
       >
-        <div className="markdown-body" style={{ margin: 30 }}>
-          <h4 className="ion-text-center">{_title}</h4>
-          <ReactMarkdown source={lyrics} />
-        </div>
+        <LyricsView title={_title} lyrics={lyrics} songId={id} />
         <IonButton fill="clear" onClick={() => setShowModal(false)}>
           <IonIcon
             color="primary"

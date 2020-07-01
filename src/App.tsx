@@ -40,6 +40,7 @@ const Home = loadable(() => import('./pages/Home'))
 const Songs = loadable(() => import('./pages/Songs'))
 const Settings = loadable(() => import('./pages/Profile'))
 const SongsList = loadable(() => import('./pages/SongsList'))
+const TrackLyrics = loadable(() => import('./pages/TrackLyrics'))
 const Register = loadable(() => import('./components/Auth/Register'))
 const Login = loadable(() => import('./components/Auth/Login'))
 
@@ -54,13 +55,13 @@ const App: React.FC = () => (
           <Route path="/song/edit/:id" component={LyricsEdit} exact={true} />
           <Route path="/profile" component={Settings} />
           <Route path="/player" component={PlayerMusic} />
-          <Route path="/songs" component={SongsList} />
+          <Route path="/songs" exact component={SongsList} />
+          <Route path="/songs/:id" exact component={TrackLyrics} />
           <Route path="/about" component={About} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
 
           <Route path="/" component={Landing} exact={true} />
-          
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="Home" href="/">
