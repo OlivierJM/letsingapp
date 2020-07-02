@@ -13,6 +13,7 @@ interface Props {
   title: string;
   lyrics: string;
   songId?: string;
+  close?: () => void;
 }
 
 export default function TrackLyrics() {
@@ -41,7 +42,7 @@ export default function TrackLyrics() {
   );
 }
 
-export function LyricsView({ title, lyrics, songId }: Props) {
+export function LyricsView({ title, lyrics, songId, close }: Props) {
   return (
     <div className="markdown-body" style={{ margin: 30 }}>
       <h4 className="ion-text-center">{title}</h4>
@@ -54,6 +55,7 @@ export function LyricsView({ title, lyrics, songId }: Props) {
             pathname: `/song/edit/${songId}`,
             state: { lyrics, title },
           }}
+          onClick={close}
         >
           here
         </Link>{" "}

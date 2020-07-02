@@ -59,7 +59,12 @@ function SongsList() {
         swipeToClose={true}
         onDidDismiss={() => setShowModal(false)}
       >
-        <LyricsView title={_title} lyrics={lyrics} songId={id} />
+        <LyricsView
+          title={_title}
+          lyrics={lyrics}
+          songId={id}
+          close={() => setShowModal(false)}
+        />
         <IonButton fill="clear" onClick={() => setShowModal(false)}>
           <IonIcon
             color="primary"
