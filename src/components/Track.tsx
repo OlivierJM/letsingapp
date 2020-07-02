@@ -46,7 +46,6 @@ const Track: React.FC<TrackType> = ({
   const history = useHistory();
   const [showActionSheet, setShowActionSheet] = useState<boolean>(false);
   const currentUrl = window.location.href
-  console.log(`${currentUrl}/${songId}`);
   return (
     <>
       <IonItem>

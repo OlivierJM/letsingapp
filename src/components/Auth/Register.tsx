@@ -48,6 +48,14 @@ function Register() {
         return;
       }
     }
+    const u = username.trim().split(' ')
+    if (u.length > 1) {
+      setData({
+        ...data,
+        error: "Username should not contain spaces",
+      });
+      return;
+    }
     if (password.length < 6) {
       setData({
         ...data,
@@ -109,6 +117,7 @@ function Register() {
               }
               value={data.username}
               minlength={6}
+              pattern="[^' ']+"
               required
             ></IonInput>
           </IonItem>

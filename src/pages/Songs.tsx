@@ -115,7 +115,7 @@ export function SongDataList({ data, openModal }: any) {
         showCancelButton="focus"
         animated
         debounce={500}
-        placeholder="Search by song title or song content"
+        placeholder="Search by title or lyrics"
       ></IonSearchbar>
 
       {results.length ? (
